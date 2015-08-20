@@ -1,7 +1,7 @@
 <?php
 
 /*
-Plugin Name: Go Rout Custom Posts
+Plugin Name: Go Rout Custom Utilities
 Plugin URI: https://gorout.net/plugins/goroutwp
 Description: Adds custom post types, settings, options and required fields for extending the gorout.com website.  DO NOT REMOVE THIS PLUGIN!
 Version: 1.1.0

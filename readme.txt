@@ -1,4 +1,4 @@
-=== GOROUT WP ===
+=== Go Rout Custom Utilities ===
 
 Contributors: Thomas S. Butler
 Tags: video custom post type, faq custom post type, other shortcodes and extentions

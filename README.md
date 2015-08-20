@@ -1,4 +1,4 @@
-Go Rout Custom Post Types
+Go Rout Custom Utilities
 =========
 
 Adds custom post types and extends WordPress for exclusive use on Go Rout website and the Go Rout application.
