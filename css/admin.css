@@ -1,0 +1,64 @@
+.goroutwp_settings input[type="text"], .goroutwp_settings select {
+    width: 600px !important;
+}
+.goroutwp_isvalid.valid {
+    font-weight: bold;
+    color: #339966;
+}
+.goroutwp_isvalid.invalid {
+    font-weight: bold;
+    color: #FF0000;
+}
+.goroutwp_isvalid.verify {
+    font-weight: bold;
+    color: #FF9900;
+}
+/* Fontawesome Admin Icons */
+#menu-posts-videos div.wp-menu-image:before {
+    content: '\f008';
+    font-family: Fontawesome !important;
+}
+#menu-posts-faqs div.wp-menu-image:before {
+    content: '\f059';
+    font-family: Fontawesome !important;
+}
+/* Form */
+.gorout_form input[type="file"],
+.gorout_form input[type="text"],
+.gorout_form input[type="password"],
+.gorout_form input[type="datetime"],
+.gorout_form input[type="datetime-local"],
+.gorout_form input[type="date"],
+.gorout_form input[type="month"],
+.gorout_form input[type="time"],
+.gorout_form input[type="week"],
+.gorout_form input[type="number"],
+.gorout_form input[type="email"],
+.gorout_form input[type="url"],
+input[type="search"],
+.gorout_form input[type="tel"],
+.gorout_form input[type="color"],
+.gorout_form .uneditable-input,
+.gorout_form select,
+.gorout_form textarea {
+  width: 100% !important;
+  border: 1px solid #D5D5D5;
+  padding: 6px 6px 7px;
+  margin-bottom: 8px;
+  height: 42px;
+}
+.gorout_form input:focus,
+.gorout_form textarea:focus {
+  background-color: #F5F5F5;
+  border-color: #D5D5D5;
+}
+.gorout_form .input-group-addon {
+  border-color: #D5D5D5;
+}
+#side-sortables .inside input[type="text"] {
+    width: 80%;
+    margin-right: 5px;
+}
+#gorout-customer-typediv .category-add select {
+    display: none !important;
+}
