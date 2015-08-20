@@ -7,12 +7,11 @@ Adds custom post types and extends WordPress for exclusive use on Go Rout websit
 
 *Please Note: This plugin has been developed exclusively for private use within the gorout.com/gorout.net websites and is not intended for distribution or publication. I you download this or use it, do so at your own risk.*    
 
-**Here is what it does do:**
+**Here is what it does:**
 
-* Adds a checkbox to the download configuration for you to indicate that a product is from a third party.
-* Adds another checkbox to indicate that a product is available on the WordPress plugin repository.
-* Adds a URL field for you to add an external link to a blog or website for product details or more information.
-* Stores this data in the download product's post_meta data for you to access and use in your custom code.
+* Provides a way to incorporate changes that would not make sense to be added to the theme's functions.php file.
+* Adds custom post types for FAQs and Videos (for application help files and website information).
+* Adds a few handy shortcodes for use in the WordPress website.
 
 **Installation**
 
