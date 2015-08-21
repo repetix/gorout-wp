@@ -14,12 +14,16 @@
     color: #FF9900;
 }
 /* Fontawesome Admin Icons */
+#menu-posts-helpfiles div.wp-menu-image:before {
+    content: '\f059';
+    font-family: Fontawesome !important;
+}
 #menu-posts-videos div.wp-menu-image:before {
     content: '\f008';
     font-family: Fontawesome !important;
 }
 #menu-posts-faqs div.wp-menu-image:before {
-    content: '\f059';
+    content: '\f05a';
     font-family: Fontawesome !important;
 }
 /* Form */

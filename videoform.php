@@ -9,16 +9,3 @@
     <input id="video_code" name="video_code" class="input width-90 required" type="text" value="<?php echo esc_attr( $video_code ); ?>" placeholder="Video ID" required /> <br />
     <br />
 </div>
-
-<script type="text/javascript">
-jQuery(document).ready(function(){
-    //validate the post meta box
-    jQuery("#publish").bind("click", function(){
-        if(jQuery("#video_code").val() == "") {
-            alert("You must enter a Video ID to continue.");
-        } else {
-            return true;
-        }
-    });
-});
-</script>

@@ -68,6 +68,37 @@ function gorout_admin_scripts() {
 //add post types and taxonomies
 add_action('init', 'goroutwp_cpt_init');
 function goroutwp_cpt_init() {
+    
+    //add custom post type for help files
+    $labels = array(
+    	'name'               => _x( 'Help Files', 'post type general name', 'goroutwp' ),
+    	'singular_name'      => _x( 'Help File', 'post type singular name', 'goroutwp' ),
+    	'menu_name'          => _x( 'Help', 'admin menu', 'goroutwp' ),
+    	'name_admin_bar'     => _x( 'Help', 'add new on admin bar', 'goroutwp' ),
+        'add_new_item'       => __( 'Add New Help File', 'goroutwp' ),
+    	'new_item'           => __( 'New Help File', 'goroutwp' ),
+    	'edit_item'          => __( 'Edit Help File', 'goroutwp' ),
+    	'view_item'          => __( 'View Help Files', 'goroutwp' ),
+    	'all_items'          => __( 'All Help Files', 'goroutwp' ),	
+    );
+    
+    $args = array(
+    	'labels'             => $labels,
+    	'public'             => true,
+    	'publicly_queryable' => true,
+    	'show_ui'            => true,
+    	'show_in_menu'       => true,
+    	'query_var'          => true,
+    	'rewrite'            => array( 'slug' => 'helpfiles' ),
+        'taxonomies'         => array('help-type'),
+    	'capability_type'    => 'post',
+        'has_archive'        => true,
+    	'hierarchical'       => true,
+    	'menu_position'      => null,
+    	'supports'           => array( 'title', 'editor', 'comments', 'custom-fields', 'excerpt', 'thumbnail' )
+    );
+    register_post_type( 'helpfiles', $args );
+    
     //add custom post type for faqs
     $labels = array(
     	'name'               => _x( 'FAQs', 'post type general name', 'goroutwp' ),
@@ -129,14 +160,49 @@ function goroutwp_cpt_init() {
     register_post_type( 'videos', $args );
     
     //register taxomonies for custom post types
+    register_taxonomy("help-type", array("helpfiles"), array("hierarchical" => true, "label" => "Help Categories", "singular_label" => "Help Category", "rewrite" => true));
     register_taxonomy("faq-type", array("faqs"), array("hierarchical" => true, "label" => "FAQ Categories", "singular_label" => "FAQ Category", "rewrite" => true));
     register_taxonomy("video-type", array("videos"), array("hierarchical" => true, "label" => "Video Categories", "singular_label" => "Video Category", "rewrite" => true));
 }
 
-//add metabox for videos
-add_action( 'add_meta_boxes', 'gorout_video_metabox', 0 );
-function gorout_video_metabox() {
+//add metaboxes for cpts
+add_action( 'add_meta_boxes', 'gorout_custom_metaboxes', 0 );
+function gorout_custom_metaboxes() {
+    add_meta_box('gorout_help_metabox','Add/Edit Page Context','gorout_help_content', 'helpfiles', 'normal', 'high');
     add_meta_box('gorout_video_metabox','Add/Edit Video File','gorout_video_content', 'videos', 'normal', 'high');
+}
+
+//metabox content for help cpt
+function gorout_help_content() {
+    
+    global $wpdb, $post;    
+    $help_context = get_post_meta( $post->ID, 'help_context', true );
+    wp_nonce_field( 'gorout_help_metabox', 'gorout_help_metabox_nonce' );
+    
+    require_once dirname( __FILE__ ) .'/helpform.php';
+    
+}
+
+//save metabox content for help cpt
+add_action( 'save_post', 'gorout_help_metabox_data' );
+function gorout_help_metabox_data( $post_id ) {
+   	
+    if ( ! isset( $_POST['gorout_help_metabox_nonce'] ) ) { return; }
+	if ( ! wp_verify_nonce( $_POST['gorout_help_metabox_nonce'], 'gorout_help_metabox' ) ) { return; }
+	
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) { return; }
+	
+    if ( isset( $_POST['post_type'] ) && 'helpfiles' == $_POST['post_type'] ) {
+		if ( ! current_user_can( 'edit_page', $post_id ) )  { return; }
+	} else {
+		if ( ! current_user_can( 'edit_post', $post_id ) )  { return; }
+	}
+    
+	if ( ! isset( $_POST['help_context'] ) ) { return; }
+    
+    $type_data = sanitize_text_field( $_POST['help_context'] );
+    update_post_meta( $post_id, 'help_context', $type_data );
+    
 }
 
 //metabox content for viedeo cpt
@@ -209,6 +275,9 @@ function shorty_phonenum_func($atts) {
  
 }
 add_shortcode( 'phonelink', 'shorty_phonenum_func' );
+
+// hide the admin bar unless admin
+add_filter('show_admin_bar', '__return_false');
 
 //load hidden divs in the footer file
 add_action('admin_footer', 'goroutwp_footer_containers');
